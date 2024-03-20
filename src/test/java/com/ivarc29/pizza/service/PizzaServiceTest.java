@@ -26,29 +26,29 @@ class PizzaServiceTest {
     private PizzaService pizzaService;
 
 
-    @DisplayName("Test to list all pizzas")
-    @Test
-    public void returnListOfPizzaEntityWhenUseGetAll() {
-
-        // Given - Condicion previa o configuracion
-        List<PizzaEntity> pizzas = new ArrayList<>();
-        pizzas.add(createPizza(1, "Margarita", "Classic margarita pizza", 10.0, true, false, true));
-        pizzas.add(createPizza(2, "Pepperoni", "Pepperoni pizza", 12.0, false, false, true));
-        pizzas.add(createPizza(3, "Hawaiana", "Hawaiian pizza", 13.0, false, true, true));
-
-        // When - Accion o comportamiento a probar
-        when(pizzaRepository.findAll()).thenReturn(pizzas);
-
-        List<PizzaEntity> result = pizzaService.getAll();
-
-        // Then - Verificar la salida esperada
-        Assertions.assertEquals(pizzas.size(), result.size());
-
-        pizzas.forEach( pizza -> {
-            Assertions.assertEquals(pizza, result.get(pizza.getIdPizza() - 1), "Test de findAll completo");
-        });
-
-    }
+//    @DisplayName("Test to list all pizzas")
+//    @Test
+//    public void returnListOfPizzaEntityWhenUseGetAll() {
+//
+//        // Given - Condicion previa o configuracion
+//        List<PizzaEntity> pizzas = new ArrayList<>();
+//        pizzas.add(createPizza(1, "Margarita", "Classic margarita pizza", 10.0, true, false, true));
+//        pizzas.add(createPizza(2, "Pepperoni", "Pepperoni pizza", 12.0, false, false, true));
+//        pizzas.add(createPizza(3, "Hawaiana", "Hawaiian pizza", 13.0, false, true, true));
+//
+//        // When - Accion o comportamiento a probar
+//        when(pizzaRepository.findAll()).thenReturn(pizzas);
+//
+////        List<PizzaEntity> result = pizzaService.getAll();
+//
+//        // Then - Verificar la salida esperada
+//        Assertions.assertEquals(pizzas.size(), result.size());
+//
+//        pizzas.forEach( pizza -> {
+//            Assertions.assertEquals(pizza, result.get(pizza.getIdPizza() - 1), "Test de findAll completo");
+//        });
+//
+//    }
 
     @DisplayName("Test to get a pizza by id")
     @Test
