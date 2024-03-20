@@ -68,7 +68,7 @@ public class PizzaService {
     @Transactional(dontRollbackOn = EmailApiException.class)
     public void updatePrice(UpdatePizzaPriceDto dto) {
         this.pizzaRepository.updatePrice(dto);
-        this.sendEmail();
+//        this.sendEmail();
     }
 
     private void sendEmail() {

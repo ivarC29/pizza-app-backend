@@ -2,6 +2,9 @@ package com.ivarc29.pizza.persistence.repository;
 
 import com.ivarc29.pizza.persistence.entity.PizzaEntity;
 import static org.assertj.core.api.Assertions.assertThat;
+
+import com.ivarc29.pizza.service.dto.UpdatePizzaPriceDto;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,6 +21,16 @@ public class PizzaRepositoryTest {
     private PizzaRepository pizzaRepository;
 
     private PizzaEntity pizza;
+    private PizzaEntity pizza1;
+    private PizzaEntity pizza2;
+    private PizzaEntity pizza3;
+    private PizzaEntity pizza4;
+    private PizzaEntity pizza5;
+    private PizzaEntity pizza6;
+    private PizzaEntity pizza7;
+    private PizzaEntity pizza8;
+    private PizzaEntity pizza9;
+
 
     @BeforeEach
     void setup() {
@@ -27,6 +40,78 @@ public class PizzaRepositoryTest {
                 .price(20.0)
                 .vegetarian(false)
                 .vegan(false)
+                .available(true)
+                .build();
+        pizza1 = PizzaEntity.builder()
+                .name("Rumanian")
+                .description("cheese and vegetables")
+                .price(21.0)
+                .vegetarian(true)
+                .vegan(false)
+                .available(true)
+                .build();
+        pizza2 = PizzaEntity.builder()
+                .name("PizzaPork")
+                .description("cheese Bacon and vegetables")
+                .price(21.0)
+                .vegetarian(false)
+                .vegan(false)
+                .available(true)
+                .build();
+        pizza3 = PizzaEntity.builder()
+                .name("PizzaFruit")
+                .description("cheese Fruit and vegetables")
+                .price(21.0)
+                .vegetarian(true)
+                .vegan(false)
+                .available(true)
+                .build();
+        pizza4 = PizzaEntity.builder()
+                .name("PizzaChicken")
+                .description("cheese Chicken and vegetables")
+                .price(21.0)
+                .vegetarian(false)
+                .vegan(false)
+                .available(true)
+                .build();
+        pizza5 = PizzaEntity.builder()
+                .name("Margarita")
+                .description("Olive oil, Fresh tomato, and basil")
+                .price(21.0)
+                .vegetarian(true)
+                .vegan(false)
+                .available(true)
+                .build();
+        pizza6 = PizzaEntity.builder()
+                .name("PizzaFruit")
+                .description("cheese Fruit and vegetables")
+                .price(22.0)
+                .vegetarian(true)
+                .vegan(false)
+                .available(true)
+                .build();
+        pizza7 = PizzaEntity.builder()
+                .name("PizzaChicken")
+                .description("cheese Chicken and vegetables")
+                .price(19.0)
+                .vegetarian(false)
+                .vegan(false)
+                .available(true)
+                .build();
+        pizza8 = PizzaEntity.builder()
+                .name("Vegan Margherita")
+                .description("Tomato sauce, Vegan mozzarella cheese and Fresh basil leaves")
+                .price(26.0)
+                .vegetarian(false)
+                .vegan(true)
+                .available(true)
+                .build();
+        pizza9 = PizzaEntity.builder()
+                .name("Vegan BBQ Chickpea")
+                .description("BBQ sauce, Red onion, thinly sliced and Fresh cilantro")
+                .price(25.0)
+                .vegetarian(false)
+                .vegan(true)
                 .available(true)
                 .build();
     }
@@ -47,14 +132,6 @@ public class PizzaRepositoryTest {
     @Test
     public void testGetAll() {
         // Given
-        PizzaEntity pizza1 = PizzaEntity.builder()
-                .name("Rumanian")
-                .description("cheese and vegetables")
-                .price(21.0)
-                .vegetarian(true)
-                .vegan(false)
-                .available(true)
-                .build();
         pizzaRepository.save(pizza);
         pizzaRepository.save(pizza1);
 
@@ -86,16 +163,8 @@ public class PizzaRepositoryTest {
     public void TestFindAllByAvailableTrueAndDescriptionContainingIgnoreCase() {
         // Given
         String ingredient = "bacon";
-        PizzaEntity pizza1 = PizzaEntity.builder()
-                .name("PizzaPork")
-                .description("cheese Bacon and vegetables")
-                .price(21.0)
-                .vegetarian(false)
-                .vegan(false)
-                .available(true)
-                .build();
         pizzaRepository.save(pizza);
-        pizzaRepository.save(pizza1);
+        pizzaRepository.save(pizza2);
         // When
         List<PizzaEntity> savedPizzas = pizzaRepository.findAllByAvailableTrueAndDescriptionContainingIgnoreCase(ingredient);
         // Then
@@ -112,24 +181,8 @@ public class PizzaRepositoryTest {
     public void TestFindAllByAvailableTrueAndDescriptionNotContainingIgnoreCase() {
         // Given
         String ingredient = "bacon";
-        PizzaEntity pizza1 = PizzaEntity.builder()
-                .name("PizzaFruit")
-                .description("cheese Fruit and vegetables")
-                .price(21.0)
-                .vegetarian(true)
-                .vegan(false)
-                .available(true)
-                .build();
-        PizzaEntity pizza2 = PizzaEntity.builder()
-                .name("PizzaChicken")
-                .description("cheese Chicken and vegetables")
-                .price(21.0)
-                .vegetarian(false)
-                .vegan(false)
-                .available(true)
-                .build();
-        pizzaRepository.save(pizza1);
-        pizzaRepository.save(pizza2);
+        pizzaRepository.save(pizza3);
+        pizzaRepository.save(pizza4);
         // When
         List<PizzaEntity> savedPizzas = pizzaRepository.findAllByAvailableTrueAndDescriptionNotContainingIgnoreCase(ingredient);
         // Then
@@ -145,34 +198,10 @@ public class PizzaRepositoryTest {
     @DisplayName("Test get top 3 pizzas available with price less than equal to.(Order Asc)")
     public void testFindTop3ByAvailableTrueAndPriceLessThanEqualOrderByPriceAsc() {
         // Given
-        PizzaEntity pizza1 = PizzaEntity.builder()
-                .name("Margarita")
-                .description("Olive oil, Fresh tomato, and basil")
-                .price(21.0)
-                .vegetarian(true)
-                .vegan(false)
-                .available(true)
-                .build();
-        PizzaEntity pizza2 = PizzaEntity.builder()
-                .name("PizzaFruit")
-                .description("cheese Fruit and vegetables")
-                .price(22.0)
-                .vegetarian(true)
-                .vegan(false)
-                .available(true)
-                .build();
-        PizzaEntity pizza3 = PizzaEntity.builder()
-                .name("PizzaChicken")
-                .description("cheese Chicken and vegetables")
-                .price(19.0)
-                .vegetarian(false)
-                .vegan(false)
-                .available(true)
-                .build();
         pizzaRepository.save(pizza);
-        pizzaRepository.save(pizza1);
-        pizzaRepository.save(pizza2);
-        pizzaRepository.save(pizza3);
+        pizzaRepository.save(pizza5);
+        pizzaRepository.save(pizza6);
+        pizzaRepository.save(pizza7);
         Double price = 22.0;
         // When
         List<PizzaEntity> savedPizzas = pizzaRepository.findTop3ByAvailableTrueAndPriceLessThanEqualOrderByPriceAsc(price);
@@ -185,12 +214,43 @@ public class PizzaRepositoryTest {
     }
 
     @Test
+    @DisplayName("Test count vegan pizzas.")
+    public void TestCountByVeganTrue() {
+        // Given
+        pizzaRepository.save(pizza8);
+        pizzaRepository.save(pizza9);
+        // When
+        int veganPizzasNumber = pizzaRepository.countByVeganTrue();
+        // Then
+        assertThat(veganPizzasNumber).isNotNull();
+        assertThat(veganPizzasNumber).isEqualTo(2);
+    }
+
+    // TODO: Revisar este test.
+//    @Test
+//    @DisplayName("Test update price of pizza.")
+//    @Transactional
+//    public void TestUpdatePrice() {
+//        // Given
+//        PizzaEntity toUpdatedPizza = pizzaRepository.save(pizza);
+//        UpdatePizzaPriceDto newPrice = new UpdatePizzaPriceDto();
+//        newPrice.setPizzaId(toUpdatedPizza.getIdPizza());
+//        newPrice.setNewPrice(27.0);
+//        // When
+//        pizzaRepository.updatePrice(newPrice);
+//        Optional<PizzaEntity> updatedPizza = pizzaRepository.findById(toUpdatedPizza.getIdPizza());
+//        // Then
+//        assertThat(updatedPizza.get().getPrice()).isEqualTo(newPrice.getNewPrice());
+//
+//    }
+
+    @Test
     @DisplayName("Test to update pizza entity in database")
     public void testUpdate() {
         // Given
-        pizzaRepository.save(pizza);
+        PizzaEntity savedPizza = pizzaRepository.save(pizza);
         // When
-        PizzaEntity pizzaToUpdate = pizzaRepository.findById(pizza.getIdPizza()).get();
+        PizzaEntity pizzaToUpdate = pizzaRepository.findById(savedPizza.getIdPizza()).get();
         pizzaToUpdate.setName("VeganFull");
         pizzaToUpdate.setDescription("Alternative cheesse with onion and vegetable");
         pizzaToUpdate.setVegan(true);
@@ -205,10 +265,10 @@ public class PizzaRepositoryTest {
     @Test
     public void testDelete() {
         // Given
-        pizzaRepository.save(pizza);
+        PizzaEntity savedPizza = pizzaRepository.save(pizza);
         // When
-        pizzaRepository.deleteById(pizza.getIdPizza());
-        Optional<PizzaEntity> pizzaOptional = pizzaRepository.findById(pizza.getIdPizza());
+        pizzaRepository.deleteById(savedPizza.getIdPizza());
+        Optional<PizzaEntity> pizzaOptional = pizzaRepository.findById(savedPizza.getIdPizza());
         // Then
         assertThat(pizzaOptional).isEmpty();
     }
