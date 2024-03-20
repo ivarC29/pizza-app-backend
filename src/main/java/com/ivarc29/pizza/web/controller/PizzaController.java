@@ -7,11 +7,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/pizzas")
@@ -41,6 +39,16 @@ public class PizzaController {
                                                           @RequestParam(defaultValue = "ASC") String sortDirection) {
         try {
             return ResponseEntity.ok(this.pizzaService.getAvailable(page,elements, sortedBy, sortDirection));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    @GetMapping("/{idPizza}")
+    public ResponseEntity<PizzaEntity> get(@PathVariable("idPizza") int idPizza) {
+        try {
+            return ResponseEntity.ok(this.pizzaService.get(idPizza));
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.internalServerError().build();
@@ -97,16 +105,6 @@ public class PizzaController {
                 return ResponseEntity.ok(pizzas);
 
             return ResponseEntity.noContent().build();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.internalServerError().build();
-        }
-    }
-
-    @GetMapping("/{idPizza}")
-    public ResponseEntity<PizzaEntity> get(@PathVariable("idPizza") int idPizza) {
-        try {
-            return ResponseEntity.ok(this.pizzaService.get(idPizza));
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.internalServerError().build();
