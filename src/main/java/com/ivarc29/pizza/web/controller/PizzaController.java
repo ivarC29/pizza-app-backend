@@ -27,7 +27,7 @@ public class PizzaController {
         try {
             return ResponseEntity.ok(this.pizzaService.getAll(page, elements));
         } catch ( Exception e ) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
     }
@@ -40,7 +40,7 @@ public class PizzaController {
         try {
             return ResponseEntity.ok(this.pizzaService.getAvailable(page,elements, sortedBy, sortDirection));
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
     }
@@ -50,7 +50,7 @@ public class PizzaController {
         try {
             return ResponseEntity.ok(this.pizzaService.get(idPizza));
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
     }
@@ -64,7 +64,7 @@ public class PizzaController {
 
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
     }
@@ -73,12 +73,12 @@ public class PizzaController {
     public ResponseEntity<List<PizzaEntity>> getAllThatDescriptionContains(@PathVariable("ingredient") String ingredient) {
         try {
             List<PizzaEntity> pizzas = this.pizzaService.getAllThatDescriptionContains(ingredient);
-            if (pizzas.size() > 0)
+            if ( !pizzas.isEmpty() )
                 return ResponseEntity.ok(pizzas);
 
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
     }
@@ -87,12 +87,12 @@ public class PizzaController {
     public ResponseEntity<List<PizzaEntity>> getAllThatDescriptionNotContains(@PathVariable("ingredient") String ingredient) {
         try {
             List<PizzaEntity> pizzas = this.pizzaService.getAllThatDescriptionNotContains(ingredient);
-            if (pizzas.size() > 0)
+            if ( !pizzas.isEmpty() )
                 return ResponseEntity.ok(pizzas);
 
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
     }
@@ -101,12 +101,12 @@ public class PizzaController {
     public ResponseEntity<List<PizzaEntity>> getTop3ByPrice(@PathVariable("price") Double price) {
         try {
             List<PizzaEntity> pizzas = this.pizzaService.getTop3ByPrice(price);
-            if (pizzas.size() > 0)
+            if ( !pizzas.isEmpty() )
                 return ResponseEntity.ok(pizzas);
 
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
     }
@@ -125,7 +125,7 @@ public class PizzaController {
 
             return ResponseEntity.badRequest().build();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
     }
@@ -138,7 +138,7 @@ public class PizzaController {
 
             return ResponseEntity.badRequest().build();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
     }
@@ -153,7 +153,7 @@ public class PizzaController {
             BeanUtils.copyProperties(pizza, existingPizza, "idPizza");
             return ResponseEntity.ok(this.pizzaService.save(existingPizza));
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
     }
@@ -167,7 +167,7 @@ public class PizzaController {
             }
             return ResponseEntity.badRequest().build();
         } catch ( Exception e ) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
     }
@@ -182,7 +182,7 @@ public class PizzaController {
 
             return ResponseEntity.noContent().build();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.internalServerError().build();
         }
     }

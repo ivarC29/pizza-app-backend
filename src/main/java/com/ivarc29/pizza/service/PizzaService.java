@@ -31,8 +31,8 @@ public class PizzaService {
         return this.pizzaPagSortRepository.findAll(pageRequest);
     }
 
-    public Page<PizzaEntity> getAvailable(int page, int elements, String sortBy, String sorDirection) {
-        Sort sort = Sort.by(Sort.Direction.fromString(sorDirection), sortBy);
+    public Page<PizzaEntity> getAvailable(int page, int elements, String sortBy, String sortDirection) {
+        Sort sort = Sort.by(Sort.Direction.fromString(sortDirection), sortBy);
         Pageable pageRequest = PageRequest.of(page, elements, sort);
         return this.pizzaPagSortRepository.findByAvailableTrue(pageRequest);
     }
